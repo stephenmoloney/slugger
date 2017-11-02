@@ -71,18 +71,18 @@ defmodule Slugger do
   defp remove_unwanted_chars(text, separator, pattern) do
     text
     |> String.replace(pattern, to_string([separator])) 
-    |> String.strip(separator)
+    |> String.trim(separator)
   end
   
   @spec replace_special_chars(text :: any) :: String.t
   defp replace_special_chars(text) do
-    text |> to_char_list |> replace_chars |> to_string
+    text |> to_charlist |> replace_chars |> to_string
   end
   
   #-- Generated function `replace_chars` below --- 
   
   # Generate replacement functions using pattern matching.
-  @spec replace_chars(char_list) :: char_list
+  @spec replace_chars(charlist()) :: charlist()
   {replacements, _} = Code.eval_file(@replacement_file)
 
   replacements_by_search =  replacements
@@ -129,7 +129,7 @@ defmodule Slugger do
   def truncate_slug(slug, max_length, options) do
     options = Keyword.merge(@truncation_defaults, options)
     slug
-    |> to_char_list
+    |> to_charlist
     |> truncate_charlist(max_length, {options[:hard], options[:separator]})
     |> to_string
   end
