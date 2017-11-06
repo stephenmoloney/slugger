@@ -22,7 +22,7 @@ defmodule SluggerTest do
 
   test "replace whitespace inside with seperator" do
     assert Slugger.slugify("   A B  C  ") == "A-B-C"
-    assert Slugger.slugify("   A B  C  ", ?_) == "A_B_C"
+    assert Slugger.slugify("   A B  C  ", "_") == "A_B_C"
   end
   
   test "replace multiple seperator inside and outside" do
@@ -56,7 +56,7 @@ defmodule SluggerTest do
 
   test "replace whitespace inside with seperator lowercase" do
     assert Slugger.slugify_downcase("   A B  C  ") == "a-b-c"
-    assert Slugger.slugify_downcase("   A B  C  ", ?_) == "a_b_c"
+    assert Slugger.slugify_downcase("   A B  C  ", "_") == "a_b_c"
   end
 
   #--- Naughty strings
@@ -76,7 +76,7 @@ defmodule SluggerTest do
   test "config defaults" do
     Application.load(:slugger)
 
-    assert Application.get_env(:slugger, :separator_char) == ?-
+    assert Application.get_env(:slugger, :separator_char) == "-"
     assert Application.get_env(:slugger, :replacement_file) == "lib/replacements.exs"
 
     assert Slugger.slugify("a ü") == "a-ue"
@@ -100,7 +100,7 @@ defmodule SluggerTest do
   end
   test "truncate before separator that is in range" do
     assert Slugger.truncate_slug("abc-def-ghi-jkl-mno-pqr", 8) == "abc-def"
-    assert Slugger.truncate_slug("abc_def", 6, [separator: ?_]) == "abc"
+    assert Slugger.truncate_slug("abc_def", 6, [separator: "_"]) == "abc"
   end
 
   test "don't truncate unimpaired last word" do
@@ -113,7 +113,7 @@ defmodule SluggerTest do
 
   test "truncate hard if option is set" do
     assert Slugger.truncate_slug("abc-def", 5, [hard: true]) == "abc-d"
-    assert Slugger.truncate_slug("abc_def", 5, [separator: ?_, hard: true]) == "abc_d"
+    assert Slugger.truncate_slug("abc_def", 5, [separator: "_", hard: true]) == "abc_d"
   end
 
 end

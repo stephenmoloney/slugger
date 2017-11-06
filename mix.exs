@@ -31,9 +31,9 @@ defmodule Slugger.Mixfile do
     [
       applications: [],
       env: [
-        # Change these values using `config :slugger, separator_char: ?-` in your config.exs file.
+        # Change these values using `config :slugger, separator_char: "-"` in your config.exs file.
         replacement_file: "lib/replacements.exs",
-        separator_char: ?-,
+        separator_char: "-",
       ],
     ]
   end
